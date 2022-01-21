@@ -8,9 +8,12 @@ public class Main {
     static Scanner console = new Scanner(System.in);
     public static void main(String[] args) {
         Gradebook gradebook = new Gradebook();
+        gradebook.load();
+
         try {
             file = new File("Data.txt");
             file.createNewFile();
+            FileWriter wr = new FileWriter("Data.txt");
 
         }catch (Exception a){
 
@@ -212,6 +215,7 @@ public class Main {
     static void addAs(as a){
         try{
             writer = new FileWriter("Data.txt" , true);
+            writer.write("AS\n");
             writer.write(a.name + "\n");
             writer.write(a.possible + "\n");
             writer.write(a.had + "\n");
@@ -313,10 +317,44 @@ class Gradebook{
         try {
             file = new File("Data.txt");
             Scanner filedata = new Scanner(file);
-
+            String user = "";
             while (filedata.hasNextLine()) {
                 String data = filedata.nextLine();
 
+                switch (data){
+                    case "SEC":
+                        data = filedata.nextLine();
+                        addSection(data);
+                        break;
+
+                    case "STU":
+                        String name,last,number,tards,abs;
+                        name = filedata.nextLine();
+                        last = filedata.nextLine();
+                        user = filedata.nextLine();
+                        number = filedata.nextLine();
+                        tards = filedata.nextLine();
+                        abs = filedata.nextLine();
+                        addStudent(name,last,user,Long.parseLong(number));
+                        System.out.println(user);
+                        break;
+
+                    case "AS":
+                        String asss = filedata.nextLine();
+                        String points = filedata.nextLine();
+                        String a = filedata.nextLine();
+                        addAssignmentToStudent(user,asss,Integer.parseInt(points));
+                        break;
+
+
+
+
+
+
+
+
+
+                }
 
 
 
